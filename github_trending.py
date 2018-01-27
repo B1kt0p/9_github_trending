@@ -33,10 +33,8 @@ def get_trending_repositories(repositories, top_size):
     return repositories['items'][:top_size]
 
 
-def get_open_reposetory_issues(
-        repo_full_name,
-        url_api={'main_url':'https://api.github.com/repos/', 'add_url': '/issues'}
-):
+def get_open_reposetory_issues(repo_full_name):
+    url_api = {'main_url': 'https://api.github.com/repos/', 'add_url': '/issues'}
     reposetory_issues = url_api['main_url'] + repo_full_name + url_api['add_url']
     response = requests.get(reposetory_issues)
     if response.ok:
