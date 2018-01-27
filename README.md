@@ -2,7 +2,7 @@
 
 The script displays 20 of the most popular repositories created in the last week, along with the number of open issues.
 
-#Get started:
+# Get started:
 
 An example of running a script in Linux, Python 3.5:
 
