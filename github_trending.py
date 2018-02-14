@@ -17,7 +17,7 @@ def get_trending_repositories(
         order='desk'
 ):
     search_params = {
-        'q':'created:>{}'.format(date_ago),
+        'q': 'created:>{}'.format(date_ago),
         'sort': sort,
         'order': order
     }
@@ -30,8 +30,10 @@ def get_trending_repositories(
         return None
 
 
-def count_issues_amount(repo_full_name):
-    reposetory_issues = 'https://api.github.com/repos/{}/issues'.format(repo_full_name)
+def get_issues_amount(repo_full_name):
+    reposetory_issues = 'https://api.github.com/repos/{}/issues'.format(
+        repo_full_name
+    )
     response = requests.get(reposetory_issues)
     if response.ok:
         return len(response.json())
@@ -39,8 +41,12 @@ def count_issues_amount(repo_full_name):
 
 def print_trend_repository(trend_repository, issues_amount):
     print('{full_name}:'.format(full_name=trend_repository['full_name']))
-    print('\t\turl_repository: {url_repository}'.format(url_repository=trend_repository['url']))
-    print('\t\tissues amount: {issues_amount}'.format(issues_amount=issues_amount))
+    print('\t\turl_repository: {url_repository}'.format(
+        url_repository=trend_repository['url']
+    ))
+    print('\t\tissues amount: {issues_amount}'.format(
+        issues_amount=issues_amount
+    ))
 
 
 if __name__ == '__main__':
@@ -50,7 +56,7 @@ if __name__ == '__main__':
     if trending_repositories:
         print('New popular projects on github for the week:')
         for trend_repository in trending_repositories:
-            issues_amount = count_issues_amount(trend_repository['full_name'])
+            issues_amount = get_issues_amount(trend_repository['full_name'])
             if issues_amount is None:
                 issues_amount = 'no data'
             print_trend_repository(trend_repository, issues_amount)
